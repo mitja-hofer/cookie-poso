@@ -1,13 +1,12 @@
 package controllers
 
 import (
+	"CookiePoso/globals"
 	"CookiePoso/helpers"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-
-	"CookiePoso/globals"
 )
 
 func LoginGetHandler() gin.HandlerFunc {
@@ -50,13 +49,15 @@ func LoginPostHandler() gin.HandlerFunc {
 			return
 		}
 
-		if !helpers.CheckUserPass(username, password) {
+		userId, ok := helpers.CheckUserPass(username, password)
+		if !ok {
 			c.HTML(http.StatusUnauthorized, "login.html", gin.H{
 				"content": "Incorrect username of password",
 			})
 		}
 
 		session.Set(globals.Userkey, username)
+		session.Set(globals.UserId, userId)
 		if err := session.Save(); err != nil {
 			c.HTML(http.StatusInternalServerError, "login.html", gin.H{
 				"content": "Failed to save session",
