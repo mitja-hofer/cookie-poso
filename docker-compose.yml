@@ -1,0 +1,30 @@
+services:
+  image:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: cookie-poso
+    entrypoint: echo "Image-only service is not intended to be run"
+  dev:
+    image: cookie-poso
+    container_name: cookie-poso
+    env_file:
+      - .env
+    restart: "no"
+    tty: true
+    volumes:
+      - ./:/app:cached
+    ports:
+      - "8080:8080"
+  prod:
+    image: cookie-poso
+    container_name: cookie-poso
+    env_file:
+      - .env
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:8080"
+    entrypoint:
+      - "bin/CookiePoso"
