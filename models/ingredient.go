@@ -61,8 +61,9 @@ func IngredientsByRecipeId(recipeId int64) ([]IngredientInRecipe, error) {
 func SelectIngredientsByPartialName(name string) ([]Ingredient, error) {
 	var ingredients []Ingredient
 
-	res, err := globals.DB.Query("SELECT id, name from ingredient WHERE name like '%?%'", name)
+	res, err := globals.DB.Query("SELECT id, name from ingredient WHERE name like ?", "%"+name+"%")
 	if err != nil {
+		log.Println("error executing name like query", err)
 		return nil, err
 	}
 	defer res.Close()
