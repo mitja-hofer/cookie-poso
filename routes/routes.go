@@ -6,16 +6,17 @@ import (
 )
 
 func PublicRoutes(g *gin.RouterGroup) {
-	g.GET("/login", controllers.LoginGetHandler())
-	g.POST("/login", controllers.LoginPostHandler())
-	g.GET("/", controllers.IndexGetHandler())
-	g.GET("/signup", controllers.SignUpGetHandler())
-	g.POST("/signup", controllers.SignUpPostHandler())
+	g.POST("/login", controllers.Login())
+	g.POST("/register", controllers.Register())
 }
 
 func PrivateRoutes(g *gin.RouterGroup) {
-	g.GET("/dashboard", controllers.DashboardGetHandler())
-	g.GET("/logout", controllers.LogoutGetHandler())
-	g.GET("/new-recipe", controllers.NewRecipeGetHandler())
+	g.GET("/user", controllers.CurrentUser())
+	g.GET("/user/:username", controllers.GetUserByUsername())
 	g.POST("/new-recipe", controllers.NewRecipePostHandler())
+	g.GET("/list-recipes", controllers.GetRecipesForLoggedIn())
+	g.GET("/list-recipes/:userId", controllers.GetRecipesByUserId())
+	g.GET("/list-ingredients/:recipeId", controllers.GetIngredientsByRecipeId())
+	g.GET("/ingredients/:name", controllers.GetIngredientsByPartialName())
+	g.POST("/ingredients", controllers.PostIngredient())
 }
