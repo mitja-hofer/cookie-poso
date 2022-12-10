@@ -121,3 +121,29 @@ func GetRecipesByIngredient() gin.HandlerFunc {
 		c.JSON(http.StatusOK, recipes)
 	}
 }
+
+func GetRecipeByName() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		recipe, err := models.SelectRecipeByName(c.Param("name"))
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"content": err,
+			})
+		}
+
+		c.JSON(http.StatusOK, recipe)
+	}
+}
+
+func GetRecipesByPartialName() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		recipes, err := models.SelectRecipesByPartialName(c.Param("name"))
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"content": err,
+			})
+		}
+
+		c.JSON(http.StatusOK, recipes)
+	}
+}

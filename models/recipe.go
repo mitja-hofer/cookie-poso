@@ -116,3 +116,58 @@ func SelectRecipesByIngredient(name string) ([]Recipe, error) {
 	}
 	return recipes, nil
 }
+
+func SelectRecipeByName(name string) (*Recipe, error) {
+	var recipe Recipe
+
+	err := globals.DB.QueryRow("SELECT id, userId, name, text FROM recipe WHERE name = ?", name).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	ingredients, err := IngredientsByRecipeId(recipe.Id)
+	if err != nil {
+		return nil, err
+	}
+	recipe.Ingredients = ingredients
+
+	return &recipe, nil
+}
+
+func SelectRecipesByPartialName(name string) ([]Recipe, error) {
+	var recipes []Recipe
+
+	res, err := globals.DB.Query("SELECT id, userId, name, text FROM recipe WHERE name like ?", "%"+name+"%")
+	if err != nil {
+		log.Println("error executing name like query", err)
+		return nil, err
+	}
+	defer res.Close()
+
+	for res.Next() {
+		var recipe Recipe
+		var ingredients []IngredientInRecipe
+		if err := res.Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text); err != nil {
+			log.Println(err)
+			return nil, err
+		}
+
+		ingredients, err = IngredientsByRecipeId(recipe.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		recipe.Ingredients = ingredients
+		log.Println(recipe)
+		recipes = append(recipes, recipe)
+
+	}
+	if err := res.Err(); err != nil {
+		return nil, err
+	}
+
+	return recipes, nil
+}

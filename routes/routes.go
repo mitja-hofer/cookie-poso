@@ -16,6 +16,8 @@ func PrivateRoutes(g *gin.RouterGroup) {
 	g.POST("/new-recipe", controllers.NewRecipePostHandler())
 	g.GET("/list-recipes", controllers.GetRecipesForLoggedIn())
 	g.GET("/recipes/ingredient/:ingredient", controllers.GetRecipesByIngredient())
+	g.GET("/recipes/name/:name", controllers.GetRecipeByName())
+	g.GET("/recipes/name-like/:name", controllers.GetRecipesByPartialName())
 	g.GET("/list-recipes/:userId", controllers.GetRecipesByUserId())
 	g.GET("/list-ingredients/:recipeId", controllers.GetIngredientsByRecipeId())
 	g.GET("/ingredients/:name", controllers.GetIngredientsByPartialName())
