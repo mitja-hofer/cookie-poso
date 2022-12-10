@@ -49,7 +49,6 @@ func IngredientsByRecipeId(recipeId int64) ([]IngredientInRecipe, error) {
 		if err := res.Scan(&ingredient.Id, &ingredient.Name, &ingredient.Amount, &ingredient.Unit); err != nil {
 			return nil, err
 		}
-		println(ingredient.Name)
 		ingredients = append(ingredients, ingredient)
 	}
 	if err := res.Err(); err != nil {

@@ -108,3 +108,16 @@ func GetIngredientsByRecipeId() gin.HandlerFunc {
 		c.IndentedJSON(http.StatusOK, recipes)
 	}
 }
+
+func GetRecipesByIngredient() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		recipes, err := models.SelectRecipesByIngredient(c.Param("ingredient"))
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"content": err,
+			})
+		}
+
+		c.JSON(http.StatusOK, recipes)
+	}
+}

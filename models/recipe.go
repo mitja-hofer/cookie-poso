@@ -2,6 +2,7 @@ package models
 
 import (
 	"CookiePoso/globals"
+	"database/sql"
 	"fmt"
 	"log"
 )
@@ -67,5 +68,51 @@ func SelectRecipesByUserId(userId int64) ([]Recipe, error) {
 		return nil, err
 	}
 
+	return recipes, nil
+}
+
+func SelectRecipeByID(id int64) (*Recipe, error) {
+	var recipe Recipe
+
+	err := globals.DB.QueryRow("SELECT id, userId, name, text FROM recipe WHERE id = ?", id).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	ingredients, err := IngredientsByRecipeId(recipe.Id)
+	if err != nil {
+		return nil, err
+	}
+	recipe.Ingredients = ingredients
+
+	return &recipe, nil
+}
+
+func SelectRecipesByIngredient(name string) ([]Recipe, error) {
+	var recipes []Recipe
+	var id int64
+	res, err := globals.DB.Query("SELECT r.id FROM ingredientrecipe ir JOIN recipe r ON ir.recipeId = r.id JOIN ingredient i ON ir.ingredientId = i.id WHERE i.name = ?", name)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+	defer res.Close()
+
+	for res.Next() {
+		res.Scan(&id)
+		recipe, err := SelectRecipeByID(id)
+		if err != nil {
+			return nil, err
+		}
+		recipes = append(recipes, *recipe)
+	}
+	if err := res.Err(); err != nil {
+		return nil, err
+	}
 	return recipes, nil
 }
