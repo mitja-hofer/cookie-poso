@@ -16,7 +16,7 @@ function postLoginForm() {
             .then(data => {
                 console.log(data)
                 sessionStorage.setItem("token", data.token)
-                document.location.href = '/assets/html/dashboard'
+                document.location.href = '/assets/html/dashboard.html'
             })
     })
 }

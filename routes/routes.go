@@ -13,14 +13,14 @@ func PublicRoutes(g *gin.RouterGroup) {
 
 func PrivateRoutes(g *gin.RouterGroup) {
 	g.GET("/user", controllers.CurrentUser())
-	g.GET("/user/:username", controllers.GetUserByUsername())
-	g.POST("/new-recipe", controllers.NewRecipePostHandler())
-	g.GET("/list-recipes", controllers.GetRecipesForLoggedIn())
+	g.GET("/user/name/:username", controllers.GetUserByUsername())
+	g.POST("/recipe", controllers.NewRecipePostHandler())
+	g.GET("/recipes", controllers.GetRecipesForLoggedIn())
 	g.GET("/recipes/ingredient/:ingredient", controllers.GetRecipesByIngredient())
 	g.GET("/recipes/name/:name", controllers.GetRecipeByName())
 	g.GET("/recipes/name-like/:name", controllers.GetRecipesByPartialName())
-	g.GET("/list-recipes/:userId", controllers.GetRecipesByUserId())
-	g.GET("/list-ingredients/:recipeId", controllers.GetIngredientsByRecipeId())
-	g.GET("/ingredients/:name", controllers.GetIngredientsByPartialName())
+	g.GET("/recipes/user-id/:userId", controllers.GetRecipesByUserId())
+	g.GET("/ingredients/recipe-id/:recipeId", controllers.GetIngredientsByRecipeId())
+	g.GET("/ingredients/name/:name", controllers.GetIngredientsByPartialName())
 	g.POST("/ingredients", controllers.PostIngredient())
 }
