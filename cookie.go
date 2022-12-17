@@ -12,7 +12,8 @@ import (
 func main() {
 	router := gin.Default()
 
-	//router.Use(sessions.Sessions("session", cookie.NewStore(globals.Secret)))
+	router.LoadHTMLGlob("assets/html/*.html")
+	router.Static("/assets", "./assets")
 
 	public := router.Group("/")
 	routes.PublicRoutes(public)

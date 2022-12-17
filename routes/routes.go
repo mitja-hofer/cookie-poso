@@ -6,6 +6,7 @@ import (
 )
 
 func PublicRoutes(g *gin.RouterGroup) {
+	g.GET("/", controllers.Index())
 	g.POST("/login", controllers.Login())
 	g.POST("/register", controllers.Register())
 }
