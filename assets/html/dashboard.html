@@ -10,7 +10,8 @@
     <script src="/assets/js/switchTab.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("recipe-search").addEventListener('keyup', searchRecipes);
+            //document.getElementById("recipe-search").addEventListener('keyup', searchRecipes);
+            document.getElementById("ingredient-search").addEventListener('keyup', searchIngredients);
             getMyCookies()
         })
     </script>
@@ -24,6 +25,7 @@
             <button class="tab-link active" onclick="switchTab(event, 'my-recipes')">My recipes</button>
             <button class="tab-link" onclick="switchTab(event, 'add-recipe')">Add recipe</button>
             <button class="tab-link" onclick="switchTab(event, 'search-recipes')">Search recipes</button>
+            <button class="tab-link" onclick="switchTab(event, 'search-ingredients')">Search ingredients</button>
         </div>
     </div>
     <div id="my-recipes" class="tab-content" style="display: block">
@@ -46,9 +48,19 @@
     <div id="search-recipes" class="tab-content">
         <h2>Search recipes</h2>
         <div id="search-control" class="search-control">
-            <input id="recipe-search" placeholder="Search for recipes" class="deprovision-search">
+            <input id="recipe-search" placeholder="Search for recipes" class="recipe-search">
+            <input type="button" onclick="searchRecipesByName()" value="Search by name">
+            <input type="button" onclick="searchRecipesByIngredient()" value="Search by ingredient">
         </div>
         <div id="recipe-list-search">
+        </div>
+    </div>
+    <div id="search-ingredients" class="tab-content">
+        <h2>Search ingredients</h2>
+        <div id="search-control" class="search-control">
+            <input id="ingredient-search" placeholder="Search for ingredients" class="ingredient-search">
+        </div>
+        <div id="ingredient-list-search">
         </div>
     </div>
 </body>
