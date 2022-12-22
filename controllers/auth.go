@@ -68,3 +68,9 @@ func Register() gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{"message": "registration success"})
 	}
 }
+
+func CheckLogin() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "ok"})
+	}
+}

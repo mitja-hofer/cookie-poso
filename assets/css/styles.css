@@ -1,0 +1,75 @@
+.body {
+    font-family: Arial, sans-serif;
+}
+#currentTime {
+    font-weight: bold;
+    font-size: 20px;
+}
+/* Tabs and layout */
+.header {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+/* Style the tab content */
+.tab-content {
+    display: none;
+    padding: 6px 12px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logout-button {
+    display: block;
+    float: right
+}
+
+.recipe-list {
+    background-color: #f1f1f1;
+    border-bottom: 1px solid black;
+}
+
+.recipe-list-heading {
+    font-size: larger;
+    font-weight: bold;
+    background-color: #ddd;
+    padding-left: 10%;
+}
+
+.recipe-list-element {
+    border-top: 1px solid black;
+}
+.new-recipe-instructions {
+    width: 80%;
+    height: 200px;
+}
+.new-recipe-instructions::placeholder {
+    text-align: left;
+
+}

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>CookiePoso Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/styles.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/assets/js/dashboard.js"></script>
@@ -12,38 +11,42 @@
         document.addEventListener('DOMContentLoaded', function() {
             //document.getElementById("recipe-search").addEventListener('keyup', searchRecipes);
             document.getElementById("ingredient-search").addEventListener('keyup', searchIngredients);
+            checkLoggedIn()
             getMyCookies()
         })
     </script>
 
 </head>
 <body>
-    Welcome to Piškotnik thing<br>
     <div class="header">
         <h1>Piškotnik Project</h1>
         <div class="tab">
             <button class="tab-link active" onclick="switchTab(event, 'my-recipes')">My recipes</button>
             <button class="tab-link" onclick="switchTab(event, 'add-recipe')">Add recipe</button>
             <button class="tab-link" onclick="switchTab(event, 'search-recipes')">Search recipes</button>
-            <button class="tab-link" onclick="switchTab(event, 'search-ingredients')">Search ingredients</button>
+            <button id="logout-button" onclick="logout()">Logout</button>
         </div>
     </div>
     <div id="my-recipes" class="tab-content" style="display: block">
         <h2>My recipes</h2>
         <div id="checks">
-            <!--
-            <div id="checks-loading">Loading my recipes</div>
-            <div id="checks-error">Error loading. See console and servers logs for more info.</div>
-            -->
-            <div id="recipe-list">
+            <div id="recipe-list" class="recipe-list">
             </div>
         </div>
     </div>
     <div id="add-recipe" class="tab-content">
-        <h2>Add new recipe</h2>
-        <div id="modal" class="modal">
-            <div id="modal-content" class="modal-content"> </div>
+        <h2>Add new recipe</h2><br>
+        <p>Recipe name: </p>
+        <input id="new-recipe-name" placeholder="Add recipe name" class="new-recipe">
+        <p>Add ingredients</p>
+        <div id="new-recipe-ingredients"><ul></ul></div>
+        <div id="search-control" class="search-control">
+            <input id="ingredient-search" placeholder="Search for ingredients" class="ingredient-search">
+            <div id="ingredient-list-search"></div>
         </div>
+        <p>Add instructions</p>
+        <textarea id="new-recipe-instructions" placeholder="Please give some instructions about the recipe." class="new-recipe-instructions"></textarea><br>
+        <input type="button" onclick="addRecipe()" value="Save new recipe">
     </div>
     <div id="search-recipes" class="tab-content">
         <h2>Search recipes</h2>
@@ -52,15 +55,7 @@
             <input type="button" onclick="searchRecipesByName()" value="Search by name">
             <input type="button" onclick="searchRecipesByIngredient()" value="Search by ingredient">
         </div>
-        <div id="recipe-list-search">
-        </div>
-    </div>
-    <div id="search-ingredients" class="tab-content">
-        <h2>Search ingredients</h2>
-        <div id="search-control" class="search-control">
-            <input id="ingredient-search" placeholder="Search for ingredients" class="ingredient-search">
-        </div>
-        <div id="ingredient-list-search">
+        <div id="recipe-list-search" class="recipe-list">
         </div>
     </div>
 </body>
