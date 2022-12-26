@@ -180,7 +180,7 @@ function addRecipe() {
         "text": instructions,
         "ingredients": ingredients
     }
-    fetch("../../recipe", {
+    fetch("../../recipes", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

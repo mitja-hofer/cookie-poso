@@ -1,10 +1,7 @@
-.body {
-    font-family: Arial, sans-serif;
+body {
+    font-family: "Arial", sans-serif;
 }
-#currentTime {
-    font-weight: bold;
-    font-size: 20px;
-}
+
 /* Tabs and layout */
 .header {
     width: 80%;
@@ -45,11 +42,13 @@
     margin-right: auto;
 }
 
+/* Move logout to right */
 #logout-button {
     display: block;
     float: right
 }
 
+/* Recipe list styling */
 .recipe-list {
     background-color: #f1f1f1;
     border-bottom: 1px solid black;
@@ -69,7 +68,8 @@
     width: 80%;
     height: 200px;
 }
+
 .new-recipe-instructions::placeholder {
     text-align: left;
-
+    font-family: "Arial", sans-serif;
 }

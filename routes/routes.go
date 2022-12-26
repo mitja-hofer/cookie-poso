@@ -13,9 +13,9 @@ func PublicRoutes(g *gin.RouterGroup) {
 
 func PrivateRoutes(g *gin.RouterGroup) {
 	g.GET("/check-login", controllers.CheckLogin())
-	g.GET("/user", controllers.CurrentUser())
-	g.GET("/user/name/:username", controllers.GetUserByUsername())
-	g.POST("/recipe", controllers.NewRecipePostHandler())
+	g.GET("/users", controllers.CurrentUser())
+	g.GET("/users/name/:username", controllers.GetUserByUsername())
+	g.POST("/recipes", controllers.NewRecipePostHandler())
 	g.GET("/recipes", controllers.GetRecipesForLoggedIn())
 	g.GET("/recipes/ingredient/:ingredient", controllers.GetRecipesByIngredient())
 	g.GET("/recipes/name/:name", controllers.GetRecipeByName())
