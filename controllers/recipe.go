@@ -67,7 +67,7 @@ func GetRecipesForLoggedIn() gin.HandlerFunc {
 			})
 		}
 
-		c.IndentedJSON(http.StatusOK, recipes)
+		c.JSON(http.StatusOK, recipes)
 	}
 }
 
@@ -86,7 +86,7 @@ func GetRecipesByUserId() gin.HandlerFunc {
 			})
 		}
 
-		c.IndentedJSON(http.StatusOK, recipes)
+		c.JSON(http.StatusOK, recipes)
 	}
 }
 
@@ -105,7 +105,7 @@ func GetIngredientsByRecipeId() gin.HandlerFunc {
 			})
 		}
 
-		c.IndentedJSON(http.StatusOK, recipes)
+		c.JSON(http.StatusOK, recipes)
 	}
 }
 

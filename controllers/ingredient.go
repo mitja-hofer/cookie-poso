@@ -19,7 +19,7 @@ func GetIngredientsByPartialName() gin.HandlerFunc {
 			})
 		}
 
-		c.IndentedJSON(http.StatusOK, ingredients)
+		c.JSON(http.StatusOK, ingredients)
 	}
 }
 
