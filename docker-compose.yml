@@ -16,6 +16,8 @@ services:
       - ./:/app:cached
     ports:
       - "8080:8080"
+    entrypoint:
+      - "/bin/sh"
   prod:
     image: cookie-poso
     container_name: cookie-poso
@@ -26,5 +28,3 @@ services:
         condition: on-failure
     ports:
       - "8080:8080"
-    entrypoint:
-      - "bin/CookiePoso"

@@ -13,4 +13,4 @@ RUN go build -o bin/CookiePoso
 
 EXPOSE 8080
 #CMD ["/CookiePoso"]
-ENTRYPOINT [ "/bin/sh"]
+ENTRYPOINT [ "bin/CookiePoso"]
