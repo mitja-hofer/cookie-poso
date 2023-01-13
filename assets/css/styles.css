@@ -63,7 +63,20 @@ body {
 
 .recipe-list-element {
     border-top: 1px solid black;
+    min-height: 150px;
 }
+
+.recipe-list-img {
+    height: 100px;
+    width: auto;
+    position: relative;
+    float: right;
+}
+
+.recipe-list-img img {
+    height: 120px;
+}
+
 .new-recipe-instructions {
     width: 80%;
     height: 200px;
@@ -72,4 +85,12 @@ body {
 .new-recipe-instructions::placeholder {
     text-align: left;
     font-family: "Arial", sans-serif;
+}
+.image-div {
+    width: 60%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }

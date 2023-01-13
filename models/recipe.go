@@ -12,11 +12,12 @@ type Recipe struct {
 	UserId      int64                `json:"user-id"`
 	Name        string               `json:"name"`
 	Text        string               `json:"text"`
+	ImgUrl      string               `json:"imgUrl"`
 	Ingredients []IngredientInRecipe `json:"ingredients"`
 }
 
 func AddRecipe(recipe Recipe) (int64, error) {
-	res, err := globals.DB.Exec("INSERT INTO recipe (userId, name, text) VALUES (?, ?, ?)", recipe.UserId, recipe.Name, recipe.Text)
+	res, err := globals.DB.Exec("INSERT INTO recipe (userId, name, text, imgUrl) VALUES (?, ?, ?, ?)", recipe.UserId, recipe.Name, recipe.Text, recipe.ImgUrl)
 	if err != nil {
 		return 0, fmt.Errorf("Add recipe: %v", err)
 	}
@@ -41,7 +42,7 @@ func AddRecipe(recipe Recipe) (int64, error) {
 func SelectRecipesByUserId(userId int64) ([]Recipe, error) {
 	var recipes []Recipe
 
-	res, err := globals.DB.Query("SELECT id, userId, name, text FROM recipe WHERE userId = ?", userId)
+	res, err := globals.DB.Query("SELECT id, userId, name, text, imgUrl FROM recipe WHERE userId = ?", userId)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +51,7 @@ func SelectRecipesByUserId(userId int64) ([]Recipe, error) {
 	for res.Next() {
 		var recipe Recipe
 		var ingredients []IngredientInRecipe
-		if err := res.Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text); err != nil {
+		if err := res.Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text, &recipe.ImgUrl); err != nil {
 			return nil, err
 		}
 
@@ -74,7 +75,7 @@ func SelectRecipesByUserId(userId int64) ([]Recipe, error) {
 func SelectRecipeByID(id int64) (*Recipe, error) {
 	var recipe Recipe
 
-	err := globals.DB.QueryRow("SELECT id, userId, name, text FROM recipe WHERE id = ?", id).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text)
+	err := globals.DB.QueryRow("SELECT id, userId, name, text, imgUrl FROM recipe WHERE id = ?", id).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text, &recipe.ImgUrl)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
@@ -120,7 +121,7 @@ func SelectRecipesByIngredient(name string) ([]Recipe, error) {
 func SelectRecipeByName(name string) (*Recipe, error) {
 	var recipe Recipe
 
-	err := globals.DB.QueryRow("SELECT id, userId, name, text FROM recipe WHERE name = ?", name).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text)
+	err := globals.DB.QueryRow("SELECT id, userId, name, text, imgUrl FROM recipe WHERE name = ?", name).Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text, &recipe.ImgUrl)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
@@ -140,7 +141,7 @@ func SelectRecipeByName(name string) (*Recipe, error) {
 func SelectRecipesByPartialName(name string) ([]Recipe, error) {
 	var recipes []Recipe
 
-	res, err := globals.DB.Query("SELECT id, userId, name, text FROM recipe WHERE name like ?", "%"+name+"%")
+	res, err := globals.DB.Query("SELECT id, userId, name, text, imgUrl FROM recipe WHERE name like ?", "%"+name+"%")
 	if err != nil {
 		log.Println("error executing name like query", err)
 		return nil, err
@@ -150,7 +151,7 @@ func SelectRecipesByPartialName(name string) ([]Recipe, error) {
 	for res.Next() {
 		var recipe Recipe
 		var ingredients []IngredientInRecipe
-		if err := res.Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text); err != nil {
+		if err := res.Scan(&recipe.Id, &recipe.UserId, &recipe.Name, &recipe.Text, &recipe.ImgUrl); err != nil {
 			log.Println(err)
 			return nil, err
 		}

@@ -11,6 +11,7 @@ import (
 type NewRecipeInput struct {
 	Name        string                      `json:"name" binding:"required"`
 	Text        string                      `json:"text" binding:"required"`
+	ImgUrl      string                      `json:"imgUrl"`
 	Ingredients []models.IngredientInRecipe `json:"ingredients" binding:"required"`
 }
 
@@ -41,6 +42,7 @@ func NewRecipePostHandler() gin.HandlerFunc {
 			Name:        input.Name,
 			Text:        input.Text,
 			Ingredients: input.Ingredients,
+			ImgUrl:      input.ImgUrl,
 		}
 
 		_, err = models.AddRecipe(recipe)

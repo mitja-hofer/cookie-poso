@@ -20,7 +20,7 @@ function searchRecipesByName() {
     const filter = document.getElementById("recipe-search").value
     const recipeList = document.getElementById("recipe-list-search")
     recipeList.innerHTML = ""
-    fetch(`../../recipes/name/${filter}`, {
+    fetch(`../../recipes/name-like/${filter}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function searchRecipesByName() {
             }
         }
         res.json().then(data => {
-            recipeList.innerHTML = generateRecipeList([data])
+            recipeList.innerHTML = generateRecipeList(data)
         })
     })
 }
@@ -104,6 +104,7 @@ function generateRecipeList(data) {
                     ${data.map(recipe =>
         `<li class="recipe-list-element" id="recipe-list-id-${recipe.id}">
                         ${recipe.name}
+                        <div class="recipe-list-img"><img src="${recipe.imgUrl}" alt=""></div>
                         <ul> ${recipe.ingredients ? recipe.ingredients.map(ing => `<li class="recipe-list-ingredient">${ing.name} ${ing.amount} ${ing.unit}</li>`).join(''): ""}</ul>
                         ${recipe.text}
                      </li>`
@@ -143,7 +144,6 @@ function generateIngredientList(data) {
 
 var ingredients = []
 function handleTick(tick) {
-    console.log(tick)
     const elem = document.getElementById(`ingredient-list-details-id-${tick.value}`)
     if (tick.checked) {
         elem.innerHTML = `<input id="ingredient-list-amount-id-${tick.value}" placeholder="Enter amount" class="">
@@ -175,10 +175,12 @@ function appendIngredient(input) {
 function addRecipe() {
     const name = document.getElementById("new-recipe-name").value
     const instructions = document.getElementById("new-recipe-instructions").value
+    const imgUrl = document.getElementById("img").src
     const data = {
         "name": name,
         "text": instructions,
-        "ingredients": ingredients
+        "ingredients": ingredients,
+        "imgUrl": imgUrl
     }
     fetch("../../recipes", {
         method: "POST",
@@ -192,8 +194,9 @@ function addRecipe() {
         document.getElementById("ingredient-list-search").innerHTML = ""
         document.getElementById("ingredient-search").value = ""
         document.getElementById("new-recipe-name").value = ""
-        document.getElementById("new-recipe-ingredients").value = ""
+        document.getElementById("new-recipe-ingredients").innerHTML = ""
         document.getElementById("new-recipe-instructions").value = ""
+        document.getElementById("img").src = ""
         getMyCookies()
     })
 

@@ -10,6 +10,7 @@ import (
 	"io"
 	"log"
 	"math/rand"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -23,17 +24,17 @@ func randomString() string {
 func UploadImage() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		containerName := os.Getenv("AZURE_BLOB_CONTAINER")
+		url := os.Getenv("AZURE_STORAGE_ACCOUNT")
 		ctx := context.Background()
 		contentType := "image/jpg"
 
-		file, header, err := c.Request.FormFile("upload")
-		filename := header.Filename
+		file, _, err := c.Request.FormFile("upload")
 		buf := bytes.NewBuffer(nil)
 		_, err = io.Copy(buf, file)
 		if err != nil {
 			log.Println(err)
 		}
-		blobName := filename + "-" + randomString()
+		blobName := randomString()
 
 		options := &azblob.UploadBufferOptions{
 			HTTPHeaders: &blob.HTTPHeaders{
@@ -45,6 +46,9 @@ func UploadImage() gin.HandlerFunc {
 		if err != nil {
 			log.Fatalf("Failure to upload to blob: %+v", err)
 		}
+		fullImageUrl := url + "/" + containerName + "/" + blobName
+
+		c.JSON(http.StatusOK, gin.H{"url": fullImageUrl})
 
 	}
 }

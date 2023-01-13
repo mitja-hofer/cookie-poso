@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/assets/js/dashboard.js"></script>
     <script src="/assets/js/switchTab.js"></script>
+    <script src="/assets/js/image.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             //document.getElementById("recipe-search").addEventListener('keyup', searchRecipes);
@@ -46,6 +47,14 @@
         </div>
         <p>Add instructions</p>
         <textarea id="new-recipe-instructions" placeholder="Please give some instructions about the recipe." class="new-recipe-instructions"></textarea><br>
+        <div class="image-div">
+            <img src="" alt="Your recipe image" id="img">
+        </div>
+        <form method="POST" enctype="multipart/form-data" action="/image" id="imageUploadForm">
+            <label for="img">Select image</label>
+            <input type="file" accept="image/jpeg">
+        </form>
+        <input type="button" onclick="uploadImage()" value="Upload image">
         <input type="button" onclick="addRecipe()" value="Save new recipe">
     </div>
     <div id="search-recipes" class="tab-content">
