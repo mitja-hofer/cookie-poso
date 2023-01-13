@@ -9,7 +9,6 @@ func PublicRoutes(g *gin.RouterGroup) {
 	g.GET("/", controllers.Index())
 	g.POST("/login", controllers.Login())
 	g.POST("/register", controllers.Register())
-	g.POST("/image", controllers.UploadImage())
 }
 
 func PrivateRoutes(g *gin.RouterGroup) {
@@ -25,4 +24,5 @@ func PrivateRoutes(g *gin.RouterGroup) {
 	g.GET("/ingredients/recipe-id/:recipeId", controllers.GetIngredientsByRecipeId())
 	g.GET("/ingredients/name-like/:name", controllers.GetIngredientsByPartialName())
 	g.POST("/ingredients", controllers.PostIngredient())
+	g.POST("/image", controllers.UploadImage())
 }
