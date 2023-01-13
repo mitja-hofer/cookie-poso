@@ -2,5 +2,5 @@
 # make sure you run
 # az acr login --name redduckyrepo first
 docker compose build
-docker tag cookie-poso redduckyrepo.azurecr.io/cookie-poso:v1.1
-docker push redduckyrepo.azurecr.io/cookie-poso:v1.1
+docker tag cookie-poso redduckyrepo.azurecr.io/cookie-poso:v1.2
+docker push redduckyrepo.azurecr.io/cookie-poso:v1.2
